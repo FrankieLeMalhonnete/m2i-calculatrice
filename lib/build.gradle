@@ -11,7 +11,7 @@ plugins {
     id 'java-library'
     id 'jacoco'
     id "com.github.spotbugs" version "4.7.0"
-    id 'pmd'
+    //id 'pmd'
     id 'checkstyle'
     id 'de.aaschmid.cpd' version '3.2'
 }
@@ -19,7 +19,6 @@ plugins {
 repositories {
     // Use JCenter for resolving dependencies.
     jcenter()
-    // en secours
     mavenCentral()
 }
 
@@ -34,23 +33,26 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-jre'
 }
 
-def configDir = "${project.rootDir}/config"
-
 spotbugs {
     ignoreFailures = true
     spotbugsTest.enabled = false
 }
 
 checkstyle {
-    toolVersion '8.36.1'
-    configFile file("$configDir/checkstyle/checkstyle.xml")
-    configProperties.checkstyleSuppressionsPath = file("$configDir/checkstyle/suppressions.xml").absolutePath
+    toolVersion '8.41.1'
+    checkstyleTest.enabled = false
 }
 
-checkstyleMain {
-    source ='lib/src/main/java'
+task checkstyleMain (type: Checkstyle, overwrite: true) {
+    ignoreFailures = true
+    showViolations = true
+    source fileTree('lib/src/main/java')
+    include '**/*.java'
+    exclude '**/gen/**'
+    classpath = fileTree("${project.buildDir}/classes/java/main/")
+    configFile = file("${rootProject.rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 checkstyleTest {
-    source ='lib/src/test/java'
+    source = 'lib/src/test/java'
 }
