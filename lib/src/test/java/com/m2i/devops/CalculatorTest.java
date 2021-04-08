@@ -40,6 +40,17 @@ public class CalculatorTest {
 	}
 
 	@Test
+	public void testDiv() {
+		int a = 15;
+		int b = 5;
+		
+		Calculator calc = new Calculator();
+		int actual = calc.div(a, b);
+		
+		assertEquals(3, actual);
+	}
+
+	@Test
 	public void testIsPair() {
 		Calculator calc = new Calculator();
 		
@@ -48,10 +59,5 @@ public class CalculatorTest {
 		
 		actual = calc.isPair(10);
 		assertTrue(actual);
-	}
-
-	@Test
-	public void testFail() {
-		fail("For test Jenkins");
 	}
 }
