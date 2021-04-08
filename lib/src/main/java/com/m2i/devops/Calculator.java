@@ -2,6 +2,9 @@ package com.m2i.devops;
 
 public class Calculator {
 
+	// Triggers Spotbug error report
+	public Object toto = null;
+	
 	public int add(int a, int b) {
 		return a+b;
 	}
