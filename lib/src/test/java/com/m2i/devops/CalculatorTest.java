@@ -49,4 +49,9 @@ public class CalculatorTest {
 		actual = calc.isPair(10);
 		assertTrue(actual);
 	}
+
+	@Test
+	public void testFail() {
+		fail("For test Jenkins");
+	}
 }
