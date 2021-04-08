@@ -11,8 +11,8 @@ plugins {
     id 'java-library'
     id 'jacoco'
     id "com.github.spotbugs" version "4.7.0"
-    //id 'pmd'
     id 'checkstyle'
+    id 'pmd'
     id 'de.aaschmid.cpd' version '3.2'
 }
 
@@ -55,4 +55,17 @@ task checkstyleMain (type: Checkstyle, overwrite: true) {
 
 checkstyleTest {
     source = 'lib/src/test/java'
+}
+
+pmd {
+    ignoreFailures = true
+    consoleOutput = true
+    toolVersion '6.33.0'
+    pmdTest.enabled = false
+    rulesMinimumPriority = 5
+    ruleSets = ["category/java/errorprone.xml",
+                "category/java/bestpractices.xml",
+                "category/java/codestyle.xml",
+                "category/java/documentation.xml",
+                "category/java/security.xml"]
 }
